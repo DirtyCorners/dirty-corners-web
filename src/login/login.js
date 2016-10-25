@@ -1,4 +1,4 @@
-angular.module( 'sample.login', [
+angular.module( 'dirt.login', [
   'auth0'
 ])
 .controller( 'LoginCtrl', function HomeController( $scope, auth, $location, store ) {
