@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="dirt" ng-controller="AppCtrl">
+<html ng-controller="AppCtrl">
   <head>
     <title ng-bind="pageTitle"></title>
 
@@ -16,6 +16,9 @@
     <link rel="stylesheet" type="text/css" href="home/home.css">
     <link rel="stylesheet" type="text/css" href="login/login.css">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.40/system.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.40/system-polyfills.js"></script>
+
     <script type="text/javascript" src="auth0-variables.js"></script>
     <script type="text/javascript" src="https://cdn.auth0.com/js/lock-7.12.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
@@ -24,12 +27,62 @@
     <script type="text/javascript" src="https://cdn.auth0.com/w2/auth0-angular-4.js"></script>
     <script src="//cdn.rawgit.com/auth0/angular-storage/master/dist/angular-storage.js" type="text/javascript"> </script>
     <script src="//cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js" type="text/javascript"> </script>
-    <script type="text/javascript" src="app.js"></script>
-    <script type="text/javascript" src="home/home.js"></script>
-    <script type="text/javascript" src="login/login.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.2.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.2.0/ui-bootstrap.min.js"></script>
+
+    <script>
+      System.config({
+        defaultJSExtensions: true,
+        transpiler: 'babel',
+//        babelOptions: {
+//          presets: ['es2015']
+//        },
+        baseURL: '/src',
+        paths: {
+          babel: 'https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js',
+          app: 'app',
+          login: 'login/index',
+          home: 'home/index',
+          profile: 'profile/index',
+        }
+      });
+
+      System.import('bootstrap').then(function () {
+        console.log('bootstrap has been loaded and running...');
+      });
+    </script>
   </head>
   <body>
-    <div class="container" ng-view></div>
+  <nav class="navbar navbar-default" ng-init="isNavCollapsed=true">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" ng-click="isNavCollapsed = !isNavCollapsed">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand waves-effect waves-light" href="#">Dirty Corners</a>
+      </div>
+
+      <div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
+        <ul class="nav navbar-nav">
+          <li><a href="#" class="waves-effect waves-light">Profile</a></li>
+          <li><a href="#" class="waves-effect waves-light">Reports</a></li>
+          <li><a href="#" class="waves-effect waves-light">Notifications</a></li>
+        </ul>
+        <form class="navbar-form navbar-right" role="search">
+          <div class="form-group waves-effect waves-light">
+            <input type="text" class="form-control" placeholder="Search">
+          </div>
+          <img src="{{auth.profile.picture}}" />
+          <button class="btn-sm btn-warning" ng-click="logout()">Logout</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" ng-view></div>
   </body>
 </html>

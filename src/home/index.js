@@ -61,3 +61,6 @@ angular.module( 'dirt.home', [
   }
 
 });
+
+const modName = 'dirt.home';
+export default modName;

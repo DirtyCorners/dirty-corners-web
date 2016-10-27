@@ -14,3 +14,5 @@ angular.module( 'dirt.login', [
   }
 
 });
+
+export default angular.module( 'dirt.login');
