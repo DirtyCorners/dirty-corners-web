@@ -26,7 +26,7 @@ angular.module('dirt', [
         templateUrl: 'login/login.html',
         pageTitle: 'Login'
       })
-      .when('/me', {
+      .when('/profile', {
         controller: 'ProfileCtrl',
         templateUrl: 'profile/template.html',
         pageTitle: 'My Profile'

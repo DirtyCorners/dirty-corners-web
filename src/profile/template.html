@@ -2,9 +2,9 @@
   <div class="col-xs-12">
     <div class="form">
       <div class="form-group">
-        <div class="checkbox">
+        <div>
           <label>
-            <input type="checkbox" checked>
+            <input type="checkbox" ng-model="profile.settings.receive_reports">
             Receive dirty reports
           </label>
         </div>
@@ -15,16 +15,37 @@
       </div>
 
       <div class="form-group">
-        <label for="home-address" class="control-label">Home address</label>
-        <input type="text" class="form-control">
+        <div>
+          <label>
+            <input type="checkbox" ng-model="profile.settings.geolocation_enabled">
+            Enable geo-location
+          </label>
+        </div>
+
         <small class="help-inline">
-          Visible to you only. If an event happens near your house, you will receive notification
-          although you may not be home.
+          If you wish to receive live reports to confirm, requires geolocation enabled
         </small>
       </div>
 
       <div class="form-group">
-        <button class="btn btn-default">Save</button>
+        <label for="home-address" class="control-label">Home address</label>
+        <input type="text" class="form-control" ng-model="profile.addresses.home"
+               ng-placeholder="122 Dogwood Ln, Pennsylvania, 16127">
+      </div>
+
+      <div class="form-group">
+        <label for="home-address" class="control-label">Work address</label>
+        <input type="text" class="form-control" ng-model="profile.addresses.work"
+               ng-placeholder="Lakeview High School, Pennsylvania, 16127">
+        <small class="help-inline">
+          Visible to you only. If an event happens near your house, you will receive notification
+          although you may not be home or just on your way to work
+        </small>
+      </div>
+
+      <div class="form-group text-center">
+        <button class="btn btn-primary" ng-click="save()">Save</button>
+        <button class="btn btn-default">Cancel</button>
       </div>
     </div>
   </div>

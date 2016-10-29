@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="app.css">
     <link rel="stylesheet" type="text/css" href="home/home.css">
     <link rel="stylesheet" type="text/css" href="login/login.css">
+    <link rel="stylesheet" type="text/css" href="profile/style.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.40/system.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.40/system-polyfills.js"></script>
@@ -35,16 +36,14 @@
       System.config({
         defaultJSExtensions: true,
         transpiler: 'babel',
-//        babelOptions: {
-//          presets: ['es2015']
-//        },
-        baseURL: '/src',
+        baseURL: '/',
         paths: {
           babel: 'https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js',
           app: 'app',
           login: 'login/index',
           home: 'home/index',
           profile: 'profile/index',
+          'dirt.services': 'services',
         }
       });
 
@@ -68,9 +67,9 @@
 
       <div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
         <ul class="nav navbar-nav">
-          <li><a href="#" class="waves-effect waves-light">Profile</a></li>
-          <li><a href="#" class="waves-effect waves-light">Reports</a></li>
-          <li><a href="#" class="waves-effect waves-light">Notifications</a></li>
+          <li><a href="#/profile" class="waves-effect waves-light">Profile</a></li>
+          <li><a href="#/reports" class="waves-effect waves-light">Reports</a></li>
+          <li><a href="#/notifications" class="waves-effect waves-light">Notifications</a></li>
         </ul>
         <form class="navbar-form navbar-right" role="search">
           <div class="form-group waves-effect waves-light">
