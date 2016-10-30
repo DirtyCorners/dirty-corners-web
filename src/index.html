@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.min.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="app.css">
-    <link rel="stylesheet" type="text/css" href="home/home.css">
+    <link rel="stylesheet" type="text/css" href="home/style.css">
     <link rel="stylesheet" type="text/css" href="login/login.css">
     <link rel="stylesheet" type="text/css" href="profile/style.css">
 
@@ -67,8 +67,8 @@
 
       <div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
         <ul class="nav navbar-nav">
+          <li><a href="#/" class="waves-effect waves-light">Reports</a></li>
           <li><a href="#/profile" class="waves-effect waves-light">Profile</a></li>
-          <li><a href="#/reports" class="waves-effect waves-light">Reports</a></li>
           <li><a href="#/notifications" class="waves-effect waves-light">Notifications</a></li>
         </ul>
         <form class="navbar-form navbar-right" role="search">
@@ -76,7 +76,7 @@
             <input type="text" class="form-control" placeholder="Search">
           </div>
           <img src="{{auth.profile.picture}}" />
-          <button class="btn-sm btn-warning" ng-click="logout()">Logout</button>
+          <button class="btn btn-sm btn-default" ng-click="search()">Search</button>
         </form>
       </div>
     </div>

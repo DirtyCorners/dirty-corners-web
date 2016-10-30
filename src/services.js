@@ -2,9 +2,15 @@ angular.module('dirt.services', [
   'auth0',
 ]);
 
+/**
+ *
+ * @param $http
+ * @param $q
+ * @return {{update: update, get: get}}
+ * @constructor
+ */
 function APIUserService ($http, $q) {
   "use strict";
-  var API_PREFIX = '';
 
   return {
     update,
@@ -19,7 +25,7 @@ function APIUserService ($http, $q) {
    * @return {*}
    */
   function get () {
-    return $http.get(API_PREFIX + 'api/profile').then(res => res.data);
+    return $http.get(API_BASE_URL + 'api/profile').then(res => res.data);
   }
 
   function update (profile) {
@@ -32,3 +38,24 @@ function APIUserService ($http, $q) {
 }
 APIUserService.$inject = ['$http', '$q'];
 angular.module('dirt.services').service('APIUserService', APIUserService);
+
+/**
+ *
+ * @param $http
+ * @param $q
+ * @return {{query: query}}
+ * @constructor
+ */
+function APIReportService ($http, $q) {
+  "use strict";
+
+  return {
+    query
+  };
+
+  function query ({limit = 10} = {}) {
+    return $http.get(API_BASE_URL + 'api/reports').then(res => res.data.reports);
+  }
+}
+APIReportService.$inject = ['$http', '$q'];
+angular.module('dirt.services').service('APIReportService', APIReportService);

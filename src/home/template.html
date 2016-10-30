@@ -1,0 +1,24 @@
+<div class="home-page">
+  <div class="col-xs-12 col-sm-8 col-sm-push-2">
+    <div class="card" ng-repeat="report in reports">
+      <div class="card-block">
+        <h4 class="card-title">
+          <span ng-bind="report.type"></span>
+        </h4>
+
+        <p>
+          Reported on <span ng-bind="report | reportDate"></span>
+        </p>
+
+        <a class="btn btn-default" ng-click="toggleDetails(report)">Details</a>
+        <button ng-if="!report.confirmedByMe"
+                class="btn btn-primary btn-raised pull-right"
+                ng-click="confirmReport(report._id)">Confirm</button>
+      </div>
+
+      <div class="card-block" ng-show="report.showingDetails">
+        <h4>SHOWING MAP</h4>
+      </div>
+    </div>
+  </div>
+</div>

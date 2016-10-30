@@ -13,11 +13,12 @@ angular.module('dirt', [
   'dirt.profile'
 ])
   .config(function myAppConfig($routeProvider, authProvider, $httpProvider, $locationProvider,
+                               jwtOptionsProvider,
                                jwtInterceptorProvider) {
     $routeProvider
       .when('/', {
         controller: 'HomeCtrl',
-        templateUrl: 'home/home.html',
+        templateUrl: 'home/template.html',
         pageTitle: 'Homepage',
         requiresLogin: true
       })
@@ -29,7 +30,8 @@ angular.module('dirt', [
       .when('/profile', {
         controller: 'ProfileCtrl',
         templateUrl: 'profile/template.html',
-        pageTitle: 'My Profile'
+        pageTitle: 'My Profile',
+        requiresLogin: true
       });
 
 
@@ -39,9 +41,14 @@ angular.module('dirt', [
       loginUrl: '/login'
     });
 
+    // debugger;
+    jwtOptionsProvider.config({
+      whiteListedDomains: ['localhost']
+    });
+
     jwtInterceptorProvider.tokenGetter = function (store) {
       return store.get('token');
-    }
+    };
 
     // Add a simple interceptor that will fetch all requests and add the jwt token to its authorization header.
     // NOTE: in case you are calling APIs which expect a token signed with a different secret, you might
@@ -59,14 +66,41 @@ angular.module('dirt', [
         }
       }
     }
-
+    else {
+      $rootScope.auth = auth;
+    }
   });
 })
   .controller('AppCtrl', function AppCtrl($scope, $location) {
+    $scope.logout = function () {
+      auth.signout();
+      store.remove('profile');
+      store.remove('token');
+      $location.path('/login');
+    }
+
     $scope.$on('$routeChangeSuccess', function (e, nextRoute) {
       if (nextRoute.$$route && angular.isDefined(nextRoute.$$route.pageTitle)) {
         $scope.pageTitle = nextRoute.$$route.pageTitle + ' | Dirty Corners';
       }
     });
+  })
+  .filter('reportDate', function () {
+    "use strict";
+    const MONTHS = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+
+    return function (input) {
+      if (input.year && input.month && input.day) {
+        return MONTHS[input.month] + ' ' + input.day + ', ' + input.year;
+      }
+      else if (input.year && input.month) {
+        return MONTHS[input.month] + ' ' + input.year;
+      }
+      else if (input.year) {
+        return input.year;
+      }
+    }
   })
 ;
