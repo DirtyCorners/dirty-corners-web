@@ -1,7 +1,9 @@
 import 'dirt.services';
+import 'ngmap';
 
 angular.module('dirt.home', [
-  'dirt.services'
+  'dirt.services',
+  'ngMap'
 ]);
 
 function HomeController($scope, $http, $location, store, APIReportService) {

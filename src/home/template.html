@@ -17,7 +17,10 @@
       </div>
 
       <div class="card-block" ng-show="report.showingDetails">
-        <h4>SHOWING MAP</h4>
+        <ng-map center="0,0" zoom="3"></ng-map>
+        <ul class="list-group card-list-group">
+          <li class="list-group-item">Reported by: {{report.reported_by.length}} persons</li>
+        </ul>
       </div>
     </div>
   </div>
