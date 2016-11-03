@@ -6,7 +6,9 @@ angular.module('dirt.home', [
   'ngMap'
 ]);
 
-function HomeController($scope, $http, $location, store, APIReportService) {
+function HomeController($scope, $q, $http, $location, store, APIReportService) {
+  var geocoder = new google.maps.Geocoder();
+
   $scope.reports = [];
 
   refresh();
@@ -44,7 +46,40 @@ function HomeController($scope, $http, $location, store, APIReportService) {
   $scope.toggleDetails = function toggleDetails(report) {
     "use strict";
 
-    report.showingDetails = !report.showingDetails;
+    const showing = !report.showingDetails;
+
+    if (report.location.latlng) {
+      report.showingDetails = showing;
+      return;
+    }
+    else {
+      report.busy = true;
+    }
+
+    if (showing) {
+      geocoder.geocode(
+        {
+          placeId: report.location.placeid
+        },
+        function (results, status) {
+          if (status === 'OK') {
+            report.showingDetails = showing;
+
+            const location = results[0].geometry.location;
+            report.location.latlng = `${location.lat()},${location.lng()}`;
+          }
+          else {
+            console.warn('[toggleDetails] Could not set location')
+          }
+
+          report.busy = false;
+          $scope.$apply();
+        }
+      );
+    }
+    else {
+      report.showingDetails = false;
+    }
   };
 
   $scope.confirmReport = function confirmReport(reportID) {
@@ -89,7 +124,7 @@ function HomeController($scope, $http, $location, store, APIReportService) {
     });
   }
 }
-HomeController.$inject = ['$scope', '$http', '$location', 'store', 'APIReportService'];
+HomeController.$inject = ['$scope', '$q', '$http', '$location', 'store', 'APIReportService'];
 
 angular.module('dirt.home').controller('HomeCtrl', HomeController);
 

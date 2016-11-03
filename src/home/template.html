@@ -16,8 +16,12 @@
                 ng-click="confirmReport(report._id)">Confirm</button>
       </div>
 
-      <div class="card-block" ng-show="report.showingDetails">
-        <ng-map center="0,0" zoom="3"></ng-map>
+      <div class="card-block" ng-if="report.showingDetails">
+        <ng-map center="{{::report.location.latlng}}"
+                draggable="false"
+                max-zoom="20"
+                min-zoom="10"
+                zoom="10"></ng-map>
         <ul class="list-group card-list-group">
           <li class="list-group-item">Reported by: {{report.reported_by.length}} persons</li>
         </ul>
